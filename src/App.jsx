@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.7'
+const VERSION = '0.0.8'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -144,20 +144,97 @@ function App() {
   const [gameWinner, setGameWinner] = useState(null)
   const [showGuide, setShowGuide] = useState(false)
 
-  const GUANDAN_TIPS = [
-    { title: '一、基础规则', content: '4人结对，两副牌。打2开始逐级上升。红心级牌为“逢人配”万能牌，可代替除王外的任何牌。' },
-    { title: '牌序大小', content: '大王 > 小王 > 级牌(红心 > 其他) > A > K > Q > J > 10... > 2。打A时，A为最大级牌。' },
-    { title: '二、牌型说明', content: '含单张、对子、三带二、顺子(5张)、连对、三连对(钢板)。炸弹可无视普通牌型进行压制。' },
-    { title: '炸弹排序', content: '天王炸 > 8张炸 > 7张 > 6张 > 同花顺(5张同花色顺子) > 5张炸 > 4张炸。' },
-    { title: '三、升级规则', content: '双上(1,2名)升3级，单上(1,3名)升2级，(1,4名)升1级。仅获得“头游”方可升级。' },
-    { title: '进贡还贡', content: '末游向头游进贡最大牌，收贡者还一张小牌。若进贡者有两张大王则抗贡。' },
-    { title: '四、实战技巧', content: '记住4张大王和3张非红心级牌。分析断张判断炸弹，关注5和10等顺子关键节点。' },
-    { title: '进贡博弈', content: '进贡成对A的一张往往优于孤立K。还贡宜送5以下废牌或破坏对手牌路的断档牌。' },
-    { title: '角色定位', content: '主攻手冲头游，消耗散牌。助攻手全力消耗对手大牌，通过“跳牌”压制并将牌权送回队友。' },
-    { title: '牌路转换', content: '跨牌型切换(如对子切顺子)强迫对手拆牌。利用“空门”判断对手弱点持续施压。' },
-    { title: '打A局战术', content: '防守重于进攻，死掐单张A。红心A不到万不得已不要配掉，是控制最后单张的杀手锏。' },
-    { title: '五、金句口诀', content: '记牌基础配合灵魂，炸弹核武运气点缀。红心级牌万能配，队友要过莫要拦。' },
-  ]
+  const GuandanGuide = () => (
+    <div className={`space-y-8 pb-8 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+      <section>
+        <h3 className={`text-xl font-black mb-4 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <span className="w-2 h-6 bg-current rounded-full" /> 一、 基础规则
+        </h3>
+        <div className="space-y-4 pl-4 border-l-2 border-slate-500/10">
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">1. 游戏准备</h4>
+            <p className="text-sm leading-relaxed">4人结对比赛（A/C一组，B/D一组）。使用两副扑克牌共108张。目标是配合队友尽快出完手中牌。</p>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">2. 牌级与主牌</h4>
+            <p className="text-sm leading-relaxed">从打“2”开始逐级上升。当前等级为“级牌”。<span className="font-bold text-red-500">红心级牌</span>为“逢人配”，可代替除王外的任何牌。</p>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">3. 牌序大小</h4>
+            <p className="text-sm leading-relaxed italic">大王 > 小王 > 级牌(红心 > 其他) > A > K > Q > J > 10 > ... > 2。打A时，A为最大级牌。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 className={`text-xl font-black mb-4 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <span className="w-2 h-6 bg-current rounded-full" /> 二、 牌型说明
+        </h3>
+        <div className="space-y-4 pl-4 border-l-2 border-slate-500/10">
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">1. 普通牌型</h4>
+            <ul className="text-sm list-disc list-inside space-y-1 opacity-90">
+              <li>单张、对子、三张、三带二</li>
+              <li>顺子：5张连续单张（最大到A）</li>
+              <li>连对：3组连续对子；钢板：2个连续三张</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">2. 炸弹（无视普通牌型）</h4>
+            <p className="text-sm leading-relaxed mb-2">大小排序：天王炸(4王) > 8张炸 > ... > 同花顺(5张同花色顺子) > 5张炸 > 4张炸。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 className={`text-xl font-black mb-4 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <span className="w-2 h-6 bg-current rounded-full" /> 三、 游戏流程
+        </h3>
+        <div className="space-y-4 pl-4 border-l-2 border-slate-500/10">
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">1. 升级规则</h4>
+            <p className="text-sm leading-relaxed">双上(1&2名)升3级；单上(1&3名)升2级；(1&4名)升1级。仅头游方升级。</p>
+          </div>
+          <div>
+            <h4 className="font-bold text-sm mb-1 text-current opacity-80">2. 进贡与还贡</h4>
+            <p className="text-sm leading-relaxed">下一局末游向头游进贡最大牌，头游还贡一张小牌。抓到两个大王则抗贡。</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 className={`text-xl font-black mb-4 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <span className="w-2 h-6 bg-current rounded-full" /> 四、 实战进阶技巧
+        </h3>
+        <div className="grid grid-cols-1 gap-4">
+          {[
+            { t: '深度记牌', c: '记4张大王和3张非红心级牌。分析断张判断炸弹，关注5和10。' },
+            { t: '进贡博弈', c: '进贡对A中的一张优于孤立K。还贡宜送5以下废牌。' },
+            { t: '角色定位', c: '主攻手冲头游；助攻手消耗大牌，通过“跳牌”将牌权送回队友。' },
+            { t: '牌路转换', c: '跨牌型切换强迫对手拆牌。利用“空门”判断弱点持续施压。' },
+            { t: '非言语信号', c: '观察队友跳牌深意与对手犹豫时机，判断牌力分布。' },
+            { t: '打A局战术', c: '防守重于进攻。红心A是控制最后单张的杀手锏。' }
+          ].map((item, i) => (
+            <div key={i} className={`p-4 rounded-2xl border ${isDark ? 'bg-indigo-500/5 border-indigo-500/10' : 'bg-slate-50 border-slate-100'}`}>
+              <div className="font-black text-xs mb-1 opacity-80">{item.t}</div>
+              <p className="text-xs leading-relaxed opacity-70">{item.c}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className={`text-xl font-black mb-4 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
+          <span className="w-2 h-6 bg-current rounded-full" /> 五、 金句与口诀
+        </h3>
+        <div className={`p-6 rounded-[2rem] italic font-medium text-sm leading-loose border-2 border-dashed ${isDark ? 'border-indigo-500/20 bg-indigo-500/5' : 'border-indigo-100 bg-indigo-50/30 text-indigo-900/70'}`}>
+          “记牌是基础，配合是灵魂，炸弹是核武，运气是点缀。”<br/>
+          “上家不放，下家不追，对家不拦，自己不慌。”<br/>
+          “队友要过莫要拦，对手要过重重关。”
+        </div>
+      </section>
+    </div>
+  )
 
   useEffect(() => {
     localStorage.setItem('guandan_game_state_v8', JSON.stringify(gameState))
@@ -553,17 +630,7 @@ function App() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto pr-2 scrollbar-hide">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {GUANDAN_TIPS.map((tip, idx) => (
-                  <div key={idx} className={`p-6 rounded-3xl border transition-all hover:scale-[1.02] duration-300 ${isDark ? 'bg-indigo-950/30 border-indigo-800/50' : 'bg-slate-50 border-slate-100 shadow-sm'}`}>
-                    <div className={`text-base font-black mb-2 flex items-center gap-2 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-current" />
-                      {tip.title}
-                    </div>
-                    <div className={`text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tip.content}</div>
-                  </div>
-                ))}
-              </div>
+              <GuandanGuide />
             </div>
             <button onClick={() => setShowGuide(false)} className={`mt-8 w-full py-5 rounded-[2rem] font-black text-lg active:scale-95 transition-all shadow-xl ${isDark ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-white'}`}>
               掌握精髓，开局！
