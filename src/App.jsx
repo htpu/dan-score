@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.4'
+const VERSION = '0.0.5'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -269,7 +269,9 @@ function App() {
 
         <div className="flex justify-center mb-4">
           <div className={`px-4 py-1.5 rounded-full flex items-center gap-2 border transition-all duration-500 font-mono text-xs font-black tracking-widest ${
-            gameState.startTime ? 'bg-slate-900 border-slate-900 text-white shadow-lg scale-105' : 'bg-slate-200/50 border-transparent text-slate-400'
+            gameState.startTime 
+              ? (isDark ? 'bg-slate-900 border-slate-900 text-white shadow-lg scale-105' : 'bg-white border-slate-200 text-indigo-600 shadow-md scale-105') 
+              : (isDark ? 'bg-slate-200/10 border-transparent text-slate-500' : 'bg-slate-200/50 border-transparent text-slate-400')
           }`}>
             <Timer size={14} className={gameState.startTime ? 'animate-pulse' : ''} />
             {formatDuration(elapsedTime)}
