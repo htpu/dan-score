@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.8'
+const VERSION = '0.0.9'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -518,7 +518,7 @@ function App() {
                       onClick={() => setSettings(s => ({...s, theme: t.id}))} 
                       className={`flex-1 py-4 rounded-2xl flex items-center justify-center gap-3 font-black text-xs transition-all ${
                         settings.theme === t.id 
-                          ? (isDark && t.id === 'dark' ? 'bg-slate-800 shadow-xl text-white' : 'bg-white shadow-xl scale-[1.02] text-slate-900') 
+                          ? (isDark ? 'bg-slate-800 shadow-xl text-white' : 'bg-indigo-600 shadow-xl scale-[1.02] text-white') 
                           : 'opacity-40 hover:opacity-60'
                       }`}
                     >
@@ -540,7 +540,7 @@ function App() {
                         onClick={() => { setSettings(s => ({...s, presetIndex: idx})); setGameState(g => ({...g, teamA: p.a, teamB: p.b})); }} 
                         className={`p-6 rounded-[2.5rem] border-2 text-left transition-all relative overflow-hidden group ${
                           isSelected 
-                            ? (isDark ? 'border-indigo-400 bg-indigo-500/10 text-indigo-300' : 'border-indigo-500 bg-indigo-50 text-indigo-600 shadow-inner') 
+                            ? (isDark ? 'border-indigo-400 bg-indigo-500/10 text-indigo-300' : 'border-indigo-600 bg-indigo-600 text-white shadow-lg') 
                             : (isDark ? 'border-slate-800 hover:border-slate-700 text-slate-400' : 'border-slate-100 hover:border-slate-200 text-slate-600')
                         }`}
                       >
