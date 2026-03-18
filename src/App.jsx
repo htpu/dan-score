@@ -353,7 +353,7 @@ function App() {
         isDark ? 'bg-gradient-to-t from-indigo-900/80 to-slate-900/80 border-white/5 text-indigo-300 shadow-[0_-20px_40px_rgba(99,102,241,0.1)]' : 'bg-white/80 border-slate-200 text-slate-400'
       }`}>
         <div className="flex justify-between items-center max-w-md mx-auto">
-          <div className="text-xs font-black italic tracking-tighter animate-pulse">David 为你加油！</div>
+          <a href="https://www.htpu.net" target="_blank" rel="noopener noreferrer" className="text-xs font-black italic tracking-tighter hover:opacity-70 transition-opacity">David 为你加油！</a>
           <div className="text-[10px] font-mono font-bold opacity-30">v{VERSION}</div>
         </div>
       </footer>
