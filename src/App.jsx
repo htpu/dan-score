@@ -296,10 +296,10 @@ function App() {
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-40">第 {idx + 1} 名归属</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <button onClick={() => handleRankSelect(idx, 'A')} className={`py-3 rounded-2xl font-black transition-all border-2 text-xs flex items-center justify-center gap-2 ${currentRanks[idx] === 'A' ? (isDark ? 'bg-indigo-600 border-indigo-600 text-white shadow-indigo-500/20' : 'bg-indigo-600 border-indigo-600 text-white shadow-lg') : (isDark ? 'bg-slate-950/50 border-slate-800 text-slate-600' : 'bg-white/80 border-slate-100 opacity-60')}`}>
+                    <button onClick={() => handleRankSelect(idx, 'A')} className={`py-3 rounded-2xl font-black transition-all border-2 text-xs flex items-center justify-center gap-2 ${currentRanks[idx] === 'A' ? (isDark ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/30' : 'bg-indigo-600 border-indigo-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
                       <IconA size={14} /> {gameState.teamA}
                     </button>
-                    <button onClick={() => handleRankSelect(idx, 'B')} className={`py-3 rounded-2xl font-black transition-all border-2 text-xs flex items-center justify-center gap-2 ${currentRanks[idx] === 'B' ? (isDark ? 'bg-rose-600 border-rose-600 text-white shadow-rose-500/20' : 'bg-rose-600 border-rose-600 text-white shadow-lg') : (isDark ? 'bg-slate-950/50 border-slate-800 text-slate-600' : 'bg-white/80 border-slate-100 opacity-60')}`}>
+                    <button onClick={() => handleRankSelect(idx, 'B')} className={`py-3 rounded-2xl font-black transition-all border-2 text-xs flex items-center justify-center gap-2 ${currentRanks[idx] === 'B' ? (isDark ? 'bg-gradient-to-r from-rose-500 to-rose-600 border-rose-400 text-white shadow-lg shadow-rose-500/30' : 'bg-rose-600 border-rose-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
                       <IconB size={14} /> {gameState.teamB}
                     </button>
                   </div>
@@ -387,7 +387,7 @@ function App() {
                   const PreIconA = p.iconA
                   const PreIconB = p.iconB
                   return (
-                    <button key={idx} onClick={() => { setSettings(s => ({...s, presetIndex: idx})); setGameState(g => ({...g, teamA: p.a, teamB: p.b})); }} className={`p-5 rounded-3xl border-2 text-left transition-all ${isSelected ? (isDark ? 'border-indigo-500 bg-indigo-500/10 text-white' : 'border-slate-900 bg-slate-900 text-white') : (isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-600')}`}>
+                    <button key={idx} onClick={() => { setSettings(s => ({...s, presetIndex: idx})); setGameState(g => ({...g, teamA: p.a, teamB: p.b})); }} className={`p-5 rounded-3xl border-2 text-left transition-all ${isSelected ? (isDark ? 'border-indigo-400 bg-indigo-500/20 text-indigo-300' : 'border-indigo-500 bg-indigo-50 text-indigo-600') : (isDark ? 'border-slate-800 text-slate-400' : 'border-slate-100 text-slate-600')}`}>
                       <div className="flex gap-2 mb-2">
                         <PreIconA size={14} className="opacity-50" />
                         <PreIconB size={14} className="opacity-50" />
