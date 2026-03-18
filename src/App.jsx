@@ -332,13 +332,13 @@ function App() {
                       </span>
                       <span className={`text-sm font-black truncate ${h.winner === 'A' ? 'text-indigo-500' : 'text-rose-500'}`}>{h.winner === 'A' ? gameState.teamA : gameState.teamB} +{h.gain}级</span>
                     </div>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <div className="flex gap-1">
+                    <div className="flex items-center gap-4 shrink-0">
+                      <div className="flex gap-1 w-[44px] justify-center">
                         {h.ranks.map((r, idx) => (
                           <div key={idx} className={`w-2 h-2 rounded-full ${r === 'A' ? 'bg-indigo-500' : 'bg-rose-500'} shadow-inner opacity-80`} />
                         ))}
                       </div>
-                      <div className="text-[9px] font-bold opacity-30">{formatTime(h.time)}</div>
+                      <div className="text-[9px] font-mono font-bold opacity-30 w-12 text-right">{formatTime(h.time)}</div>
                     </div>
                   </div>
                 </div>
