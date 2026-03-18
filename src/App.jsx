@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.2'
+const VERSION = '0.0.3'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -320,24 +320,26 @@ function App() {
             {gameState.history.slice().reverse().map((h, i) => {
               const roundNum = gameState.history.length - i
               return (
-                <div key={roundNum} className={`p-4 rounded-3xl border animate-in slide-in-from-bottom-2 duration-300 ${isDark ? 'bg-indigo-950/20 border-indigo-800/30' : 'bg-white/60 border-white/50 shadow-sm'}`}>
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black italic border ${
+                <div key={roundNum} className={`p-3 px-4 rounded-2xl border animate-in slide-in-from-bottom-2 duration-300 ${isDark ? 'bg-indigo-950/20 border-indigo-800/30' : 'bg-white/60 border-white/50 shadow-sm'}`}>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black italic border shrink-0 ${
                         isDark 
                           ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' 
                           : 'bg-indigo-50 border-indigo-100 text-indigo-400'
                       }`}>
                         R{roundNum}
                       </span>
-                      <span className={`text-sm font-black ${h.winner === 'A' ? 'text-indigo-500' : 'text-rose-500'}`}>{h.winner === 'A' ? gameState.teamA : gameState.teamB} +{h.gain}级</span>
+                      <span className={`text-sm font-black truncate ${h.winner === 'A' ? 'text-indigo-500' : 'text-rose-500'}`}>{h.winner === 'A' ? gameState.teamA : gameState.teamB} +{h.gain}级</span>
                     </div>
-                    <div className="flex items-center gap-1 text-[9px] font-bold opacity-30"><Clock size={10} /> {formatTime(h.time)}</div>
-                  </div>
-                  <div className="flex gap-1.5">
-                    {h.ranks.map((r, idx) => (
-                      <div key={idx} className={`w-2.5 h-2.5 rounded-full ${r === 'A' ? 'bg-indigo-500' : 'bg-rose-500'} shadow-inner opacity-80`} />
-                    ))}
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="flex gap-1">
+                        {h.ranks.map((r, idx) => (
+                          <div key={idx} className={`w-2 h-2 rounded-full ${r === 'A' ? 'bg-indigo-500' : 'bg-rose-500'} shadow-inner opacity-80`} />
+                        ))}
+                      </div>
+                      <div className="text-[9px] font-bold opacity-30">{formatTime(h.time)}</div>
+                    </div>
                   </div>
                 </div>
               )

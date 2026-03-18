@@ -1,143 +1,75 @@
-# AGENTS.md - Development Guidelines
+# AGENTS.md - 开发指南
 
-## Project Overview
+## 项目概述
 
-This is a **single-file React application** (掼蛋/Guandan score tracker) embedded in `index.html`. It uses React 18, Tailwind CSS via CDN, and lucide-react icons. No build system or package manager - changes are made directly to the HTML file.
-
----
-
-## Commands
-
-### Development
-- **Open in browser**: Open `index.html` directly in a browser, or use a simple HTTP server:
-  ```bash
-  # Python 3
-  python -m http.server 8000
-  # Then visit http://localhost:8000
-  ```
-
-### Testing
-- **No test framework** - This is a simple static HTML file with no automated tests.
-- Manual testing: Open in browser, test all game flows (scoring, undo, reset, theme switching, team presets).
-
-### Linting
-- **No linter configured** - No ESLint, Prettier, or other tooling.
-- Code review is manual.
+这是一个基于 **Vite 和 React 19** 开发的掼蛋计分器应用。使用 React Hooks 进行状态管理，采用 Tailwind CSS 进行样式设计。项目遵循移动端优先的设计原则。
 
 ---
 
-## Code Style Guidelines
+## 常用命令
 
-### General Principles
-- Keep all code in a **single HTML file** (`index.html`) unless the project grows significantly.
-- Use **functional components** with React hooks (`useState`, `useEffect`, `useMemo`).
-- Use **Tailwind CSS classes** for all styling - avoid inline styles except for dynamic values.
+### 开发
+- **启动开发服务器**: `npm run dev`
+- **构建生产版本**: `npm run build`
+- **预览构建结果**: `npm run preview`
 
-### Imports
-```javascript
-import React, { useState, useEffect, useMemo } from 'react';
-import { IconName } from 'lucide-react';
-```
-- Place React imports at the top of the script.
-- Group icon imports alphabetically within the lucide-react import.
+### 测试
+- **手动测试**: 在移动端浏览器或模拟器中打开应用。测试完整的游戏流程（计分、撤销、重置、主题切换、队伍预设）。
+- **逻辑验证**: 确保“过 A”逻辑和“三次不过 A”处罚机制按预期运行。
 
-### Types
-- This is plain JavaScript (no TypeScript).
-- Use JSDoc comments for complex functions if needed:
-  ```javascript
-  /** @param {number} idx */
-  const handleRankSelect = (idx, team) => { ... };
-  ```
-
-### Naming Conventions
-- **Components**: PascalCase (`App`, `PokerBackground`)
-- **Constants**: UPPER_SNAKE_CASE (`LEVELS`, `TEAM_PRESETS`)
-- **Functions/variables**: camelCase (`handleRankSelect`, `gameState`)
-- **Event handlers**: Prefix with `handle` (`handleUndo`, `handleFullReset`)
-- **State setters**: Prefix with `set` (`setGameState`, `setSettings`)
-
-### Formatting
-- Indentation: **2 spaces**
-- Line length: Try to keep lines under 120 characters
-- JSX attributes: One per line for readability
-- Use trailing commas in arrays and objects
-- Use template literals for string interpolation
-
-### Component Structure
-```javascript
-// 1. Constants/helpers (outside component)
-const LEVELS = [...];
-
-// 2. Sub-components (if any)
-const SubComponent = () => { ... };
-
-// 3. Main component
-const App = () => {
-  // State initialization (with lazy init if needed)
-  const [state, setState] = useState(...);
-
-  // Effects
-  useEffect(() => { ... }, [...]);
-
-  // Helpers
-  const helper = () => { ... };
-
-  // Event handlers
-  const handleX = () => { ... };
-
-  // Render
-  return ( ... );
-};
-```
-
-### Tailwind CSS Usage
-- Use **arbitrary values** sparingly (e.g., `h-[100dvh]`)
-- Prefer Tailwind's **spacing scale** over arbitrary values
-- Use `animate-in` classes for entrance animations
-- Keep responsive classes minimal (mobile-first design)
-
-### State Management
-- Use `useState` for local component state
-- Use `localStorage` with versioned keys for persistence (e.g., `guandan_game_state_v8`)
-- Store both game state and settings in localStorage
-
-### Error Handling
-- Validate inputs in event handlers (e.g., `if (!pendingResult) return;`)
-- Use optional chaining (`?.`) when accessing nested properties
-- Wrap JSON.parse in try-catch for localStorage data:
-  ```javascript
-  try {
-    return JSON.parse(saved);
-  } catch {
-    return defaultValue;
-  }
-  ```
-
-### Chinese Language
-- Use Chinese for user-facing text (labels, buttons, messages)
-- Use English for code and comments (or Chinese comments if explaining Chinese-specific logic)
+### 代码检查
+- **运行 ESLint**: `npm run lint`
+- **配置**: `eslint.config.js` 遵循标准的 React 和 Vite 规则。
 
 ---
 
-## Version Control
+## 代码风格指南
 
-- No git repository currently initialized
-- If needed, initialize with: `git init`
+### 通用原则
+- 使用 **函数组件** 和 React Hooks (`useState`, `useEffect`, `useMemo`)。
+- 使用 **Tailwind CSS** 处理所有样式。除非是动态值，否则避免使用内联样式。
+- 遵循 **移动端优先** (Mobile First) 的设计原则。
+
+### 命名规范
+- **组件**: PascalCase (`App`, `PokerBackground`)
+- **常量**: UPPER_SNAKE_CASE (`LEVELS`, `TEAM_PRESETS`)
+- **函数/变量**: camelCase (`handleRankSelect`, `gameState`)
+- **事件处理**: 以 `handle` 为前缀 (`handleUndo`, `handleFullReset`)
+- **状态设置**: 以 `set` 为前缀 (`setGameState`, `setSettings`)
+
+### 格式要求
+- 缩进: **2 个空格**
+- 行宽: 尽量保持单行在 120 字符以内
+- JSX 属性: 当存在多个属性时，建议每行一个以提高可读性。
+- 使用尾随逗号 (Trailing commas)。
+
+### 状态管理
+- 使用 `useState` 处理组件局部状态。
+- 使用 `localStorage` 进行数据持久化，采用版本化键名（如 `guandan_game_state_v8`）。
+- 同时在 `localStorage` 中存储游戏状态和用户设置。
+
+### 错误处理
+- 在事件处理器中验证输入有效性。
+- 访问深层属性时使用可选链 (`?.`)。
+- 在解析 `localStorage` 数据时使用 `try-catch` 包裹 `JSON.parse`。
 
 ---
 
-## Key Files
+## 关键文件
 
-| File | Purpose |
+| 文件 | 用途 |
 |------|---------|
-| `index.html` | Main application (all code) |
-| `掼蛋计分器需求文档.md` | Requirements document |
+| `src/App.jsx` | 主应用逻辑和 UI |
+| `src/main.jsx` | 入口文件 |
+| `index.html` | 根 HTML 模板 |
+| `vite.config.js` | Vite 配置文件 |
+| `掼蛋计分器需求文档.md` | 需求文档 |
 
 ---
 
-## Game Logic Reference
+## 游戏逻辑参考
 
-- **Levels**: `['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']`
-- **Win points**: Double lose (+3), single lose (+2), small win (+1 or 0), draw (0)
-- **Victory**: Must rank 1st with teammate not last
-- **Optional penalty**: 3 fails without A drops to level 2
+- **级别**: `['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']`
+- **升级规则**: 双下 (+3), 单下 (+2), 小胜 (+1 或 0), 平局 (0)
+- **过 A 判定**: 在 A 级时必须拿第一且队友不是最后一名。
+- **惩罚机制**: 可选“三次冲 A 失败回退至 2 级”。
