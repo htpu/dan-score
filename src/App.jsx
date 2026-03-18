@@ -22,6 +22,8 @@ import {
   Smartphone
 } from 'lucide-react'
 
+const VERSION = '0.0.1'
+
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
 const TEAM_PRESETS = [
@@ -328,7 +330,7 @@ function App() {
       }`}>
         <div className="flex justify-between items-center max-w-md mx-auto">
           <div className="text-xs font-black italic tracking-tighter animate-pulse">David 为你加油！</div>
-          <div className="text-[10px] font-mono font-bold opacity-30">v0.0.1</div>
+          <div className="text-[10px] font-mono font-bold opacity-30">v{VERSION}</div>
         </div>
       </footer>
 
