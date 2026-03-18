@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.9'
+const VERSION = '0.1.0'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -161,7 +161,7 @@ function App() {
           </div>
           <div>
             <h4 className="font-bold text-sm mb-1 text-current opacity-80">3. 牌序大小</h4>
-            <p className="text-sm leading-relaxed italic">大王 > 小王 > 级牌(红心 > 其他) > A > K > Q > J > 10 > ... > 2。打A时，A为最大级牌。</p>
+            <p className="text-sm leading-relaxed italic">大王 {" > "} 小王 {" > "} 级牌(红心 {" > "} 其他) {" > "} A {" > "} K {" > "} Q {" > "} J {" > "} 10 {" > "} ... {" > "} 2。打A时，A为最大级牌。</p>
           </div>
         </div>
       </section>
@@ -181,7 +181,7 @@ function App() {
           </div>
           <div>
             <h4 className="font-bold text-sm mb-1 text-current opacity-80">2. 炸弹（无视普通牌型）</h4>
-            <p className="text-sm leading-relaxed mb-2">大小排序：天王炸(4王) > 8张炸 > ... > 同花顺(5张同花色顺子) > 5张炸 > 4张炸。</p>
+            <p className="text-sm leading-relaxed mb-2">大小排序：天王炸(4王) {" > "} 8张炸 {" > "} ... {" > "} 同花顺(5张同花色顺子) {" > "} 5张炸 {" > "} 4张炸。</p>
           </div>
         </div>
       </section>
