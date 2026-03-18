@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.1.0'
+const VERSION = '0.1.1'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -518,8 +518,8 @@ function App() {
                       onClick={() => setSettings(s => ({...s, theme: t.id}))} 
                       className={`flex-1 py-4 rounded-2xl flex items-center justify-center gap-3 font-black text-xs transition-all ${
                         settings.theme === t.id 
-                          ? (isDark ? 'bg-slate-800 shadow-xl text-white' : 'bg-indigo-600 shadow-xl scale-[1.02] text-white') 
-                          : 'opacity-40 hover:opacity-60'
+                          ? (isDark ? 'bg-slate-800 shadow-xl text-white' : 'bg-white shadow-md text-indigo-600 border border-slate-200') 
+                          : 'opacity-40 hover:opacity-100'
                       }`}
                     >
                       <t.icon size={16} /> {t.label}
@@ -540,8 +540,8 @@ function App() {
                         onClick={() => { setSettings(s => ({...s, presetIndex: idx})); setGameState(g => ({...g, teamA: p.a, teamB: p.b})); }} 
                         className={`p-6 rounded-[2.5rem] border-2 text-left transition-all relative overflow-hidden group ${
                           isSelected 
-                            ? (isDark ? 'border-indigo-400 bg-indigo-500/10 text-indigo-300' : 'border-indigo-600 bg-indigo-600 text-white shadow-lg') 
-                            : (isDark ? 'border-slate-800 hover:border-slate-700 text-slate-400' : 'border-slate-100 hover:border-slate-200 text-slate-600')
+                            ? (isDark ? 'border-indigo-400 bg-indigo-500/10 text-indigo-300' : 'border-indigo-500 bg-indigo-50 text-indigo-600 shadow-sm') 
+                            : (isDark ? 'border-slate-800 hover:border-slate-700 text-slate-400' : 'border-slate-200 hover:border-slate-300 text-slate-500 bg-white/50')
                         }`}
                       >
                         <div className="flex gap-2 mb-3">
@@ -557,10 +557,14 @@ function App() {
                 </div>
               </section>
               <section className="pt-8 border-t border-slate-500/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <button onClick={() => setShowGuide(true)} className="p-6 bg-indigo-500/10 text-indigo-400 rounded-[2.5rem] font-black border border-indigo-500/20 active:scale-95 transition-all flex items-center justify-center gap-3">
+                <button onClick={() => setShowGuide(true)} className={`p-6 rounded-[2.5rem] font-black border active:scale-95 transition-all flex items-center justify-center gap-3 ${
+                  isDark ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-indigo-50 text-indigo-600 border-indigo-100'
+                }`}>
                   <Trophy size={22} /> 掼蛋宝典
                 </button>
-                <button onClick={() => setShowResetConfirm(true)} className="p-6 bg-red-500/10 text-red-500 rounded-[2.5rem] font-black border border-red-500/20 active:scale-95 transition-all flex items-center justify-center gap-3">
+                <button onClick={() => setShowResetConfirm(true)} className={`p-6 rounded-[2.5rem] font-black border active:scale-95 transition-all flex items-center justify-center gap-3 ${
+                  isDark ? 'bg-red-500/10 text-red-500 border-red-500/20' : 'bg-red-50 text-red-600 border-red-100'
+                }`}>
                   <RotateCcw size={22} /> 彻底清除重置
                 </button>
               </section>
