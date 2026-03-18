@@ -319,44 +319,44 @@ function App() {
 
         <div className="flex-1 flex flex-col lg:flex-row gap-8 overflow-hidden">
           {/* Left Side: Score and Entry */}
-          <div className="lg:w-1/2 flex flex-col gap-6 overflow-y-auto scrollbar-hide pb-4">
-            <div className={`rounded-[3rem] shadow-2xl p-8 lg:p-12 relative overflow-hidden transition-all duration-500 border flex-shrink-0 ${
+          <div className="lg:w-1/2 flex flex-col gap-4 lg:gap-6 overflow-y-auto scrollbar-hide pb-4">
+            <div className={`rounded-[2.5rem] lg:rounded-[3rem] shadow-2xl p-6 lg:p-8 relative overflow-hidden transition-all duration-500 border flex-shrink-0 ${
               isDark ? 'bg-slate-900/80 border-white/5 shadow-indigo-500/10' : 'bg-white/90 border-white/50 shadow-indigo-900/5'
             }`}>
               <div className="flex justify-between items-center relative z-10">
                 <div className="text-center flex-1">
-                  <IconA className={`mx-auto mb-4 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`} size={32} />
-                  <div className={`text-xs font-black uppercase mb-2 opacity-60 tracking-wider`}>{gameState.teamA}</div>
-                  <div className={`text-8xl lg:text-9xl font-black tracking-tighter leading-none ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{LEVELS[gameState.levelA]}</div>
+                  <IconA className={`mx-auto mb-2 lg:mb-3 w-6 h-6 lg:w-8 lg:h-8 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                  <div className={`text-[10px] lg:text-xs font-black uppercase mb-1 lg:mb-2 opacity-60 tracking-wider`}>{gameState.teamA}</div>
+                  <div className={`text-7xl lg:text-8xl font-black tracking-tighter leading-none ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{LEVELS[gameState.levelA]}</div>
                 </div>
-                <div className="w-px h-24 bg-slate-500/10 mx-4" />
+                <div className="w-px h-16 lg:h-20 bg-slate-500/10 mx-2 lg:mx-4" />
                 <div className="text-center flex-1">
-                  <IconB className={`mx-auto mb-4 ${isDark ? 'text-rose-400' : 'text-rose-600'}`} size={32} />
-                  <div className={`text-xs font-black uppercase mb-2 opacity-60 tracking-wider`}>{gameState.teamB}</div>
-                  <div className={`text-8xl lg:text-9xl font-black tracking-tighter leading-none ${isDark ? 'text-rose-400' : 'text-rose-600'}`}>{LEVELS[gameState.levelB]}</div>
+                  <IconB className={`mx-auto mb-2 lg:mb-3 w-6 h-6 lg:w-8 lg:h-8 ${isDark ? 'text-rose-400' : 'text-rose-600'}`} />
+                  <div className={`text-[10px] lg:text-xs font-black uppercase mb-1 lg:mb-2 opacity-60 tracking-wider`}>{gameState.teamB}</div>
+                  <div className={`text-7xl lg:text-8xl font-black tracking-tighter leading-none ${isDark ? 'text-rose-400' : 'text-rose-600'}`}>{LEVELS[gameState.levelB]}</div>
                 </div>
               </div>
             </div>
 
-            <div className={`rounded-[2.5rem] p-6 lg:p-8 space-y-4 transition-all duration-500 border flex-shrink-0 ${
+            <div className={`rounded-[2rem] lg:rounded-[2.5rem] p-5 lg:p-6 space-y-3 lg:space-y-4 transition-all duration-500 border flex-shrink-0 ${
               isDark ? 'bg-indigo-950/30 border-indigo-800/50' : 'bg-white/70 border-white/40 shadow-sm'
             }`}>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3 lg:gap-4">
                 {[0, 1, 2, 3].map((idx) => {
                   const isVisible = idx === 0 || (currentRanks[idx - 1] !== null && !pendingResult)
                   if (!isVisible) return null
                   return (
                     <div key={idx} className="animate-in slide-in-from-top-2 duration-300">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black italic ${isDark ? 'bg-slate-800 text-indigo-400' : 'bg-indigo-50 text-indigo-500 border border-indigo-100'}`}>{idx+1}</span>
-                        <span className="text-[11px] font-black uppercase tracking-widest opacity-40">第 {idx + 1} 名归属</span>
+                      <div className="flex items-center gap-2 lg:gap-3 mb-1.5 lg:mb-2">
+                        <span className={`w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center text-[9px] lg:text-[10px] font-black italic ${isDark ? 'bg-slate-800 text-indigo-400' : 'bg-indigo-50 text-indigo-500 border border-indigo-100'}`}>{idx+1}</span>
+                        <span className="text-[10px] lg:text-[11px] font-black uppercase tracking-widest opacity-40">第 {idx + 1} 名归属</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <button onClick={() => handleRankSelect(idx, 'A')} className={`py-4 lg:py-5 rounded-2xl font-black transition-all border-2 text-sm flex items-center justify-center gap-3 ${currentRanks[idx] === 'A' ? (isDark ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/30' : 'bg-indigo-600 border-indigo-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
-                          <IconA size={18} /> {gameState.teamA}
+                      <div className="grid grid-cols-2 gap-2 lg:gap-3">
+                        <button onClick={() => handleRankSelect(idx, 'A')} className={`py-3.5 lg:py-4 rounded-xl lg:rounded-2xl font-black transition-all border-2 text-xs lg:text-sm flex items-center justify-center gap-2 lg:gap-3 ${currentRanks[idx] === 'A' ? (isDark ? 'bg-gradient-to-r from-indigo-500 to-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-500/30' : 'bg-indigo-600 border-indigo-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
+                          <IconA className="w-4 h-4 lg:w-5 lg:h-5" /> {gameState.teamA}
                         </button>
-                        <button onClick={() => handleRankSelect(idx, 'B')} className={`py-4 lg:py-5 rounded-2xl font-black transition-all border-2 text-sm flex items-center justify-center gap-3 ${currentRanks[idx] === 'B' ? (isDark ? 'bg-gradient-to-r from-rose-500 to-rose-600 border-rose-400 text-white shadow-lg shadow-rose-500/30' : 'bg-rose-600 border-rose-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
-                          <IconB size={18} /> {gameState.teamB}
+                        <button onClick={() => handleRankSelect(idx, 'B')} className={`py-3.5 lg:py-4 rounded-xl lg:rounded-2xl font-black transition-all border-2 text-xs lg:text-sm flex items-center justify-center gap-2 lg:gap-3 ${currentRanks[idx] === 'B' ? (isDark ? 'bg-gradient-to-r from-rose-500 to-rose-600 border-rose-400 text-white shadow-lg shadow-rose-500/30' : 'bg-rose-600 border-rose-600 text-white shadow-lg') : (isDark ? 'bg-slate-800/60 border-slate-700 text-slate-300' : 'bg-white/80 border-slate-100 opacity-60')}`}>
+                          <IconB className="w-4 h-4 lg:w-5 lg:h-5" /> {gameState.teamB}
                         </button>
                       </div>
                     </div>
