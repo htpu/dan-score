@@ -104,14 +104,18 @@ function App() {
   const [showGuide, setShowGuide] = useState(false)
 
   const GUANDAN_TIPS = [
-    { title: '记牌', content: '记住已出的关键牌，特别是大小王、A、2等大牌' },
-    { title: '配合', content: '队友第一名后，应主动送牌帮助队友走完' },
-    { title: '领头', content: '领头时控制出牌速度，避免暴露牌型' },
-    { title: '封顶', content: '有炸弹时留到最后，关键时刻翻盘' },
-    { title: '诱骗', content: '可故意拆牌诱骗对手出炸弹' },
-    { title: '留力', content: '最后一轮慎重出牌，确保安全' },
-    { title: '对子', content: '对子可拆开逼炸弹现身' },
-    { title: '传牌', content: '根据队友需求传相应牌型' },
+    { title: '记牌', content: '记住已出的关键牌，特别是大小王、A、2等大牌，判断对手剩余牌力' },
+    { title: '配合', content: '队友第一名后，应主动送牌帮助队友走完；队友最后一名时要想办法接应' },
+    { title: '领头', content: '领头时控制出牌节奏，观察对手反应判断牌型；可先用小牌试探' },
+    { title: '封顶', content: '炸弹留到最后关键时机使用，一击制胜；防守时炸弹可逼对手拆牌' },
+    { title: '诱骗', content: '可故意拆牌（如拆顺子、对子）诱骗对手出炸弹消耗其火力' },
+    { title: '留力', content: '最后一轮慎重出牌，确保手牌安全；保留变化应对突发情况' },
+    { title: '对子', content: '对子可拆开逼炸弹现身，或组成三带二增加牌力' },
+    { title: '传牌', content: '根据队友位置和手牌传相应牌型，队友需要什么就传什么' },
+    { title: '控牌', content: '非必要不出大牌，控制牌权，避免对手掌握主动' },
+    { title: '读牌', content: '观察对手出牌习惯和表情，判断其牌型和心理状态' },
+    { title: '止损', content: '明显劣势时及时调整策略，减少失分，争取保级' },
+    { title: '心态', content: '保持平稳心态，不要急于求成，稳扎稳打才能获胜' },
   ]
 
   useEffect(() => {
