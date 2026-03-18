@@ -22,6 +22,8 @@ import {
   Smartphone
 } from 'lucide-react'
 
+const VERSION = '0.0.2'
+
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
 const TEAM_PRESETS = [
@@ -99,6 +101,18 @@ function App() {
   const [elapsedTime, setElapsedTime] = useState(0)
   const [showResetConfirm, setShowResetConfirm] = useState(false)
   const [gameWinner, setGameWinner] = useState(null)
+  const [showGuide, setShowGuide] = useState(false)
+
+  const GUANDAN_TIPS = [
+    { title: '记牌', content: '记住已出的关键牌，特别是大小王、A、2等大牌' },
+    { title: '配合', content: '队友第一名后，应主动送牌帮助队友走完' },
+    { title: '领头', content: '领头时控制出牌速度，避免暴露牌型' },
+    { title: '封顶', content: '有炸弹时留到最后，关键时刻翻盘' },
+    { title: '诱骗', content: '可故意拆牌诱骗对手出炸弹' },
+    { title: '留力', content: '最后一轮慎重出牌，确保安全' },
+    { title: '对子', content: '对子可拆开逼炸弹现身' },
+    { title: '传牌', content: '根据队友需求传相应牌型' },
+  ]
 
   useEffect(() => {
     localStorage.setItem('guandan_game_state_v8', JSON.stringify(gameState))
@@ -201,15 +215,9 @@ function App() {
 
   return (
     <div className={`h-[100dvh] flex flex-col transition-all duration-700 max-w-md mx-auto relative select-none overflow-hidden ${
-      isDark ? 'bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'
+      isDark ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-slate-100' : 'bg-slate-50 text-slate-900'
     }`}>
       <PokerBackground isDark={isDark} />
-
-      <div className="fixed inset-0 z-[1000] bg-slate-900 text-white flex flex-col items-center justify-center p-10 text-center landscape:flex portrait:hidden">
-        <Smartphone size={64} className="mb-6 animate-bounce" />
-        <h2 className="text-2xl font-black mb-2 italic">请使用竖屏模式</h2>
-        <p className="opacity-60 text-sm">David 提醒你：竖屏计分更顺手哦！</p>
-      </div>
 
       <header className="flex-shrink-0 z-20 p-4 pb-2 bg-transparent backdrop-blur-sm border-b border-white/5">
         <div className="flex justify-between items-center mb-4">
@@ -257,7 +265,7 @@ function App() {
         </div>
 
         <div className={`mt-4 rounded-[2rem] p-4 space-y-3 transition-all duration-500 border ${
-          isDark ? 'bg-slate-900/40 border-slate-800' : 'bg-white/70 border-white/40 shadow-sm'
+          isDark ? 'bg-indigo-950/30 border-indigo-800/50' : 'bg-white/70 border-white/40 shadow-sm'
         }`}>
           <div className="flex flex-col gap-3">
             {[0, 1, 2, 3].map((idx) => {
@@ -294,7 +302,7 @@ function App() {
             {gameState.history.slice().reverse().map((h, i) => {
               const roundNum = gameState.history.length - i
               return (
-                <div key={roundNum} className={`p-4 rounded-3xl border animate-in slide-in-from-bottom-2 duration-300 ${isDark ? 'bg-slate-900/40 border-slate-800 shadow-none' : 'bg-white/60 border-white/50 shadow-sm'}`}>
+                <div key={roundNum} className={`p-4 rounded-3xl border animate-in slide-in-from-bottom-2 duration-300 ${isDark ? 'bg-indigo-950/20 border-indigo-800/30' : 'bg-white/60 border-white/50 shadow-sm'}`}>
                   <div className="flex justify-between items-center mb-2">
                     <div className="flex items-center gap-2">
                       <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black italic border ${
@@ -324,16 +332,16 @@ function App() {
       </main>
 
       <footer className={`flex-shrink-0 py-4 px-6 border-t backdrop-blur-2xl transition-all duration-500 z-50 ${
-        isDark ? 'bg-slate-950/80 border-white/5 text-slate-600 shadow-[0_-20px_40px_rgba(0,0,0,0.5)]' : 'bg-white/80 border-slate-200 text-slate-400'
+        isDark ? 'bg-gradient-to-t from-indigo-900/80 to-slate-900/80 border-white/5 text-indigo-300 shadow-[0_-20px_40px_rgba(99,102,241,0.1)]' : 'bg-white/80 border-slate-200 text-slate-400'
       }`}>
         <div className="flex justify-between items-center max-w-md mx-auto">
           <div className="text-xs font-black italic tracking-tighter animate-pulse">David 为你加油！</div>
-          <div className="text-[10px] font-mono font-bold opacity-30">v0.0.1</div>
+          <div className="text-[10px] font-mono font-bold opacity-30">v{VERSION}</div>
         </div>
       </footer>
 
       {isSettingsOpen && (
-        <div className={`fixed inset-0 z-[100] p-8 animate-in slide-in-from-bottom duration-500 flex flex-col ${isDark ? 'bg-slate-950/98 backdrop-blur-2xl' : 'bg-white/98 backdrop-blur-2xl'}`}>
+        <div className={`fixed inset-0 z-[100] p-8 animate-in slide-in-from-bottom duration-500 flex flex-col ${isDark ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 backdrop-blur-2xl' : 'bg-white/98 backdrop-blur-2xl'}`}>
           <div className="flex justify-between items-center mb-10">
             <h2 className="text-3xl font-black italic tracking-tighter">SETTINGS</h2>
             <button onClick={() => setIsSettingsOpen(false)} className="p-3 bg-slate-100 rounded-full text-slate-500"><X size={24}/></button>
@@ -371,6 +379,9 @@ function App() {
               </div>
             </section>
             <section className="pt-6 border-t border-slate-800">
+              <button onClick={() => setShowGuide(true)} className="w-full p-5 bg-indigo-500/10 text-indigo-400 rounded-[2rem] font-black border border-indigo-500/20 active:scale-95 transition-all flex items-center justify-center gap-2 mb-3">
+                <Trophy size={20} /> 掼蛋宝典
+              </button>
               <button onClick={() => setShowResetConfirm(true)} className="w-full p-5 bg-red-500/10 text-red-500 rounded-[2rem] font-black border border-red-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
                 <RotateCcw size={20} /> 彻底清除重置
               </button>
@@ -384,7 +395,7 @@ function App() {
           <div className={`w-full max-w-xs rounded-[3.5rem] p-8 shadow-2xl text-center ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-white'}`}>
             <AlertCircle size={32} className="mx-auto mb-4 text-yellow-500" />
             <h2 className="text-2xl font-black mb-2 italic">确认结果？</h2>
-            <div className={`rounded-3xl p-5 mb-6 border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-100'}`}>
+            <div className={`rounded-3xl p-5 mb-6 border ${isDark ? 'bg-indigo-950/50 border-indigo-800' : 'bg-slate-50 border-slate-100'}`}>
               <div className={`text-xl font-black ${pendingResult.winner === 'A' ? 'text-indigo-500' : 'text-rose-500'}`}>
                 {pendingResult.winner === 'A' ? gameState.teamA : gameState.teamB} +{pendingResult.gain}级
               </div>
@@ -414,6 +425,30 @@ function App() {
             <p className="text-xs opacity-40 mb-8">清空所有记录和计时，不可恢复。</p>
             <button onClick={handleFullReset} className="w-full py-4 rounded-2xl bg-red-600 text-white font-black mb-3">确认重置</button>
             <button onClick={() => setShowResetConfirm(false)} className="text-xs font-bold opacity-30 uppercase tracking-widest">取消</button>
+          </div>
+        </div>
+      )}
+
+      {showGuide && (
+        <div className="fixed inset-0 z-[700] flex items-center justify-center p-4 bg-black/90 backdrop-blur-2xl animate-in fade-in">
+          <div className={`w-full max-w-md max-h-[80vh] rounded-[2rem] p-6 overflow-hidden flex flex-col ${isDark ? 'bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border border-indigo-800' : 'bg-white'}`}>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className={`text-xl font-black italic ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>掼蛋宝典</h2>
+              <button onClick={() => setShowGuide(false)} className={`p-2 rounded-full active:scale-90 transition-all ${isDark ? 'bg-indigo-950 text-indigo-400' : 'bg-slate-100 text-slate-500'}`}>
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto space-y-3 pr-2">
+              {GUANDAN_TIPS.map((tip, idx) => (
+                <div key={idx} className={`p-4 rounded-2xl border ${isDark ? 'bg-indigo-950/30 border-indigo-800/50' : 'bg-slate-50 border-slate-100'}`}>
+                  <div className={`text-sm font-black mb-1 ${isDark ? 'text-indigo-400' : 'text-indigo-600'}`}>{tip.title}</div>
+                  <div className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{tip.content}</div>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => setShowGuide(false)} className={`mt-4 w-full py-3 rounded-2xl font-black active:scale-95 transition-all ${isDark ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-white'}`}>
+              我知道了
+            </button>
           </div>
         </div>
       )}
