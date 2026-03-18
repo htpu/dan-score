@@ -91,9 +91,25 @@ function App() {
   const [settings, setSettings] = useState(() => {
     const saved = localStorage.getItem('guandan_settings_v8')
     return saved ? JSON.parse(saved) : {
-      presetIndex: 0, smallWinUpgrade: true, tripleFailPenalty: true, theme: 'light'
+      presetIndex: 0, smallWinUpgrade: true, tripleFailPenalty: true, theme: 'auto'
     }
   })
+
+  const [systemDark, setSystemDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+    }
+    return false
+  })
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handler = (e) => setSystemDark(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
+
+  const isDark = settings.theme === 'dark' || (settings.theme === 'auto' && systemDark)
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [currentRanks, setCurrentRanks] = useState([null, null, null, null])
@@ -214,8 +230,6 @@ function App() {
       startTime: prev.history.length === 1 ? null : prev.startTime
     }))
   }
-
-  const isDark = settings.theme === 'dark'
 
   return (
     <div className={`h-[100dvh] flex flex-col transition-all duration-700 max-w-md mx-auto relative select-none overflow-hidden ${
@@ -354,10 +368,13 @@ function App() {
             <section>
               <label className="text-[10px] font-black uppercase tracking-widest opacity-40 block mb-4">外观设置</label>
               <div className={`flex p-1 rounded-[1.5rem] ${isDark ? 'bg-slate-900' : 'bg-slate-100'}`}>
-                <button onClick={() => setSettings(s => ({...s, theme: 'light'}))} className={`flex-1 py-3 rounded-2xl flex items-center justify-center gap-2 font-black text-xs ${!isDark ? 'bg-white shadow-md' : 'opacity-40'}`}>
+                <button onClick={() => setSettings(s => ({...s, theme: 'auto'}))} className={`flex-1 py-3 rounded-2xl flex items-center justify-center gap-2 font-black text-xs ${settings.theme === 'auto' ? 'bg-white shadow-md' : 'opacity-40'}`}>
+                  <Smartphone size={14} /> 自动
+                </button>
+                <button onClick={() => setSettings(s => ({...s, theme: 'light'}))} className={`flex-1 py-3 rounded-2xl flex items-center justify-center gap-2 font-black text-xs ${settings.theme === 'light' ? 'bg-white shadow-md' : 'opacity-40'}`}>
                   <Sun size={14} /> 浅色
                 </button>
-                <button onClick={() => setSettings(s => ({...s, theme: 'dark'}))} className={`flex-1 py-3 rounded-2xl flex items-center justify-center gap-2 font-black text-xs ${isDark ? 'bg-slate-800 shadow-md' : 'opacity-40'}`}>
+                <button onClick={() => setSettings(s => ({...s, theme: 'dark'}))} className={`flex-1 py-3 rounded-2xl flex items-center justify-center gap-2 font-black text-xs ${settings.theme === 'dark' ? 'bg-slate-800 shadow-md text-white' : 'opacity-40'}`}>
                   <Moon size={14} /> 深色
                 </button>
               </div>
