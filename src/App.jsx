@@ -22,7 +22,7 @@ import {
   Smartphone
 } from 'lucide-react'
 
-const VERSION = '0.0.3'
+const VERSION = '0.0.4'
 
 const LEVELS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
@@ -214,9 +214,21 @@ function App() {
 
   const handleFullReset = () => {
     const preset = TEAM_PRESETS[settings.presetIndex]
-    setGameState({ teamA: preset.a, teamB: preset.b, levelA: 0, levelB: 0, failA: 0, failB: 0, history: [], startTime: null })
+    setGameState({ 
+      teamA: preset.a, 
+      teamB: preset.b, 
+      levelA: 0, 
+      levelB: 0, 
+      failA: 0, 
+      failB: 0, 
+      history: [], 
+      startTime: null 
+    })
     setCurrentRanks([null, null, null, null])
-    setShowResetConfirm(false); setGameWinner(null)
+    setPendingResult(null)
+    setElapsedTime(0)
+    setGameWinner(null)
+    setShowResetConfirm(false)
   }
 
   const handleUndo = () => {
