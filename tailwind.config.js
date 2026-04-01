@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      borderRadius: {
+        'card': '2rem',
+        'modal': '2.5rem',
+      },
+    },
   },
   plugins: [],
 }
